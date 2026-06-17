@@ -1,0 +1,60 @@
+body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 500px;
+    height: 300px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: #cece4f;
+    border: 3px solid #cece4f;
+    border-radius: 5px;
+}
+
+.photo {
+    width: 75px;
+    height: 75px;
+    background-color: purple;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+#name {
+    height: 40px;
+}
+#name b {
+    font-size: 30px;
+}
+
+#bio {
+    color: #585353;
+    height: 100px;
+}
+
+.status {
+    flex-grow: 1;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.status-child {
+    width: 100px;
+    height: 75px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.status-child b {
+    margin-top: 20px;
+}
