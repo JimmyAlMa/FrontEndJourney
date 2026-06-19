@@ -1,0 +1,59 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    grid-template-areas: 
+        "header header header"
+        "l-sidebar main r-sidebar"
+        "footer footer footer";
+    gap: 5px;
+    border: 3px solid black;
+}
+
+.box-1 {
+    background-color: red;
+    grid-area: footer;
+    text-align: center;
+    align-content: center;
+    color: yellow;
+}
+.box-2 {
+    background-color: blue;
+    text-align: center;
+    align-content: center;
+    color: white;
+}
+.box-3 {
+    background-color: yellow;
+    grid-area: header;
+    text-align: center;
+    align-content: center;
+    color: red;
+}
+.box-4 {
+    background-color: green;
+    text-align: center;
+    align-content: center;
+    color: white;
+}
+.box-5 {
+    background-color: purple;
+    text-align: center;
+    align-content: center;
+    color: white;
+}

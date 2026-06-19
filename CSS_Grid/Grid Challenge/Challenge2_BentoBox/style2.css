@@ -1,0 +1,40 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 15px;
+
+    border: 3px solid black;
+}
+.box-1 {
+    background-color: red;
+    grid-column: span 2;
+    grid-row: span 2;
+}
+.box-2 {
+    background-color: blue;
+    grid-column: 3 / 4;
+    grid-row: span 2;
+}
+.box-3 {
+    background-color: green;
+}
+.box-4 {
+    background-color: purple;
+}
+.box-5 {
+    background-color: yellow;
+}

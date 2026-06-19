@@ -1,0 +1,37 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+    display: grid;
+    grid-template-rows: repeat(2, 100px);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1em;
+
+    border: 3px solid black;
+}
+
+.item-1 {
+    background-color: red;
+    text-align: center;
+    align-content: center;
+}
+.item-2 {
+    background-color: blue;
+    text-align: center;
+    align-content: center;
+}
+.item-3 {
+    background-color: green;
+    text-align: center;
+    align-content: center;
+}
+.item-4 {
+    grid-column: span 3;
+    background-color: orange;
+    text-align: center;
+    align-content: center;
+}
