@@ -8,6 +8,7 @@ body {
     align-items: center;
 }
 
+
 .container {
     border: 5px solid black;
     border-radius: 5px;
@@ -57,14 +58,6 @@ body {
 
 .box2 {
     align-self: flex-start;
-
-    /* order: -1; */
-    /* flex-grow: 1; */
-    /* flex-shrink: 5; */
-    /* flex-basis: 200px; */
-    /* flex: 1; */
-    /* align-self: center; */
-    /* order: 1; */
 }
 .box3 {
     align-self: flex-end;
