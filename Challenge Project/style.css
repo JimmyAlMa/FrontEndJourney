@@ -1,0 +1,92 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* Navigation Bar */
+.navbar {
+    position: sticky;
+    top: 0;
+    height: 75px;
+    width: 98vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px;
+    z-index: 1000;
+    border: 2px solid black;
+}
+#logo {
+    font-size: 2rem;
+}
+#nav-list {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+#nav-list li b {
+    font-size: 1.4rem;
+}
+.navbar b {
+    cursor: pointer;
+}
+
+
+/* Title */
+.title {
+    width: 98vw;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border: 2px solid black;
+}
+#buttonBox {
+    width: 30vw;
+    height: 75px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.sub-buttonBox {
+    height: 40px;
+    padding-left: 25px;
+    padding-right: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
+
+
+/* Container 1 */
+.container-1 {
+    width: 98vw;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+}
+.subContainer-1 {
+    width: 70vw;
+    height: 80vh;
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    border: 3px solid red;
+    border-radius: 5px;
+}
