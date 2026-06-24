@@ -90,7 +90,7 @@ body {
     gap: 1rem;
     padding: 1rem;
     border: 3px solid red;
-    border-radius: 5px;
+    border-radius: 20px;
 }
 #subContainer1-box1 {
     grid-column: span 3;
@@ -155,7 +155,7 @@ body {
     margin-bottom: 10px;
 }
 #container2-titleBox h1 {
-    font-size: 2.3rem;
+    font-size: 3rem;
 }
 #container2-box2 {
     grid-column: span 1;
@@ -177,5 +177,97 @@ body {
 #container2-box3 {
     grid-column: span 1;
     grid-row: span 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#container2-box3 hr {
+    border: none;
+    background-color: gray;
+    height: 2px;
+}
+#container2-box3 b {
+    font-size: 1.4rem;
+}
+#container2-box3 p {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.4rem;
+}
+#container2-buttonContainer {
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+#container2-button {
+    width: max-content;
+    padding: 5px 5px 5px 20px;
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
+
+
+/* Container 3 */
+.container-3 {
+    width: 98vw;
+    height: 90vh;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 175px 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    border: 2px solid black;
+}
+#container3-box1 {
+    grid-column: span 3;
+    grid-row: span 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+}
+#container3-titleBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+#container3-titleBox h1 {
+    font-size: 3rem;
+}
+#container3-box2 {
+    grid-column: span 1;
+    grid-row: span 1;
+    background-color: blue;
+}
+#container3-box3 {
+    grid-column: span 1;
+    grid-row: span 1;
+    background-color: green;
+}
+#container3-box4 {
+    grid-column: span 1;
+    grid-row: span 1;
     background-color: yellow;
+}
+#container3-subBox2,
+#container3-subBox3,
+#container3-subBox4 {
+    height: 70%;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(3, 1fr);
+    padding-left: 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+.container3-logoBox {
+    display: flex;
+    align-items: center;
+}
+.container3-logo {
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50%;
 }
