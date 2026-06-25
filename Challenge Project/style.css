@@ -44,7 +44,7 @@ body {
     display: none;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 799px) {
     #nav-list {
         display: none;
     }
@@ -66,8 +66,22 @@ body {
 
     border: 2px solid black;
 }
+#first-title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 4rem;
+    margin-bottom: 10px;    
+}
+#second-title {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+#subtitle {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
 #buttonBox {
-    width: 30vw;
+    width: 55vw;
     height: 75px;
     display: flex;
     justify-content: space-evenly;
@@ -84,6 +98,24 @@ body {
     color: white;
     background-color: black;
     cursor: pointer;
+}
+
+@media (max-width: 799px) {
+    #first-title {
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 3rem;
+        margin-bottom: 10px;    
+    }
+    #second-title {
+        font-size: 2.3rem;
+        margin-bottom: 15px;
+    }
+    #subtitle {
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+    
 }
 
 
