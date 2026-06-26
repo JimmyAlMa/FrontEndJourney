@@ -67,15 +67,18 @@ body {
     font-family: 'Times New Roman', Times, serif;
     font-size: 4rem;
     margin-bottom: 10px;    
+    text-align: center;
 }
 #second-title {
     font-size: 3rem;
     margin-bottom: 15px;
+    text-align: center;
 }
 #subtitle {
     font-family: 'Times New Roman', Times, serif;
     font-size: 1.3rem;
     margin-bottom: 15px;
+    text-align: center;
 }
 #buttonBox {
     width: 55vw;
@@ -125,7 +128,7 @@ body {
     align-items: center;
 }
 .subContainer-1 {
-    width: 90vw;
+    width: 80vw;
     height: 80vh;
     display: grid;
     grid-template-rows: repeat(4, 1fr);
@@ -199,6 +202,7 @@ body {
 }
 #container2-titleBox h1 {
     font-size: 3rem;
+    text-align: center;
 }
 #container2-box2 {
     grid-column: span 1;
@@ -207,11 +211,12 @@ body {
     justify-content: center;
     align-items: center;
     background-color: purple;
+    border-radius: 10px;
 }
 #container2-dataBox {
     width: 70%;
     height: 35%;
-    border: 2px solid black;
+    background-color: yellow;
 
     display: flex;
     justify-content: center;
@@ -251,7 +256,7 @@ body {
 
 @media (max-width: 799px) {
     #container2-titleBox h1 {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
     #container2-box3 b {
         font-size: 1.2rem;
@@ -271,7 +276,6 @@ body {
     grid-template-rows: 175px 1fr;
     gap: 1rem;
     padding: 1rem;
-    border: 2px solid black;
 }
 #container3-box1 {
     grid-column: span 3;
@@ -286,6 +290,7 @@ body {
     flex-direction: column;
     align-items: center;
     margin-bottom: 10px;
+    text-align: center;
 }
 #container3-titleBox h1 {
     font-size: 3rem;
@@ -325,7 +330,13 @@ body {
 }
 .container3-subTitle {
     grid-row: span 2;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+}
+
+@media (max-width: 799px) {
+    .container3-subTitle {
+        font-size: 1rem;
+    }
 }
 
 
@@ -337,7 +348,6 @@ body {
     justify-content: center;
     align-items: center;
     padding: 1rem;
-    border: 2px solid black;
 }
 #container4-subContainer {
     width: 70%;
@@ -350,13 +360,11 @@ body {
     border-radius: 10px;
 }
 #container4-box1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 1rem;
 }
 #container4-subBox1 {
-    height: 90%;
-    width: 90%;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -376,7 +384,7 @@ body {
     flex-direction: column;
     gap: 10px;
     padding-top: 0.5rem;
-    font-size: 1.1rem;
+    font-size: 0.8rem;
 }
 #container4-button {
     height: 35px;
@@ -385,8 +393,21 @@ body {
     text-align: center;
     align-items: center;
     padding: 0.5rem;
+    cursor: pointer;
     color: white;
     background-color: black;
+}
+
+@media (max-width: 700px) {
+    #container4-subBox2 {
+        font-size: 0.7rem;
+    }
+}
+
+@media (min-width: 1000px) {
+    #container4-subBox2 {
+        font-size: 0.9rem;
+    }
 }
 
 
