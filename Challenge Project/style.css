@@ -23,8 +23,7 @@ body {
     align-items: center;
     padding: 10px 10px;
     z-index: 1000;
-    border: 2px solid black;
-    background-color: white;
+    background-color: #ffffff;
 }
 #logo {
     font-size: 2rem;
@@ -63,8 +62,6 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    border: 2px solid black;
 }
 #first-title {
     font-family: 'Times New Roman', Times, serif;
@@ -126,10 +123,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid black;
 }
 .subContainer-1 {
-    width: 70vw;
+    width: 90vw;
     height: 80vh;
     display: grid;
     grid-template-rows: repeat(4, 1fr);
@@ -182,11 +178,10 @@ body {
     width: 98vw;
     height: 90vh;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 125px 1fr;
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: 100px 1fr;
     gap: 1rem;
     padding: 1rem;
-    border: 2px solid black;
 }
 #container2-box1 {
     grid-column: span 2;
@@ -199,6 +194,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     margin-bottom: 10px;
 }
 #container2-titleBox h1 {
@@ -251,6 +247,18 @@ body {
     color: white;
     background-color: black;
     cursor: pointer;
+}
+
+@media (max-width: 799px) {
+    #container2-titleBox h1 {
+        font-size: 2rem;
+    }
+    #container2-box3 b {
+        font-size: 1.2rem;
+    }
+    #container2-box3 p {
+        font-size: 1.2rem;
+    }
 }
 
 
@@ -379,4 +387,12 @@ body {
     padding: 0.5rem;
     color: white;
     background-color: black;
+}
+
+
+.container-1,
+.container-2,
+.container-3,
+.container-4 {
+    margin: 10px auto;
 }
