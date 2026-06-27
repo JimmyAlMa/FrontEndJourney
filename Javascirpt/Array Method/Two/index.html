@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Jim's HR Dashboard</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; background-color: #f9f9f9; }
+    .employee-card { background: white; padding: 1rem; margin-bottom: 0.5rem; border-radius: 6px; border-left: 5px solid #ccc; }
+    .active-staff { border-left-color: #2ecc71; }
+    .fired-staff { border-left-color: #e74c3c; text-decoration: line-through; color: #aaa; }
+    hr { margin: 1.5rem 0; }
+  </style>
+</head>
+<body>
+
+  <h1>👥 HR Employee Dashboard</h1>
+  
+  <input type="text" id="name-input" placeholder="Enter employee name...">
+  <button id="add-btn">Hire Employee</button>
+  <button id="filter-active-btn">Show Active Only</button>
+
+  <hr>
+
+  <div id="employee-list"></div>
+
+  <h3>Total Active Employees: <span id="total-active">0</span></h3>
+
+  <script src="app.js"></script>
+</body>
+</html>
