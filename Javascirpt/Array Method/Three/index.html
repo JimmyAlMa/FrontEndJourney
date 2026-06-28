@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Jim's Warehouse System</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; background-color: #f0f2f5; }
+    .product-box { background: white; padding: 1rem; margin-bottom: 0.5rem; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; }
+    .out-of-stock { background-color: #ffebee; color: #c62828; }
+    .btn-action { margin-left: 5px; }
+    hr { margin: 1.5rem 0; }
+  </style>
+</head>
+<body>
+
+  <h1>📦 Warehouse Inventory Control</h1>
+  
+  <input type="text" id="search-input" placeholder="Search item by name...">
+  <button id="search-btn">Search</button>
+  <button id="filter-empty-btn">Show Out of Stock</button>
+
+  <hr>
+
+  <div id="inventory-list"></div>
+
+  <h3>Total Stock Items: <span id="total-items">0</span></h3>
+
+  <script src="inventory.js"></script>
+</body>
+</html>
