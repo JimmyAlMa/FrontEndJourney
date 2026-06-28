@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Jim's Online Store Admin</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; background-color: #f4f6f9; }
+    .product-card { background: white; padding: 1rem; margin-bottom: 0.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+    hr { margin: 1.5rem 0; }
+    button { padding: 0.5rem 1rem; margin-right: 5px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <h1>🛒 FakeStore API Dashboard</h1>
+  
+  <button id="btn-all">Fetch All Products</button>
+  <button id="btn-cheap">Show Cheap Products (< $50)</button>
+
+  <hr>
+
+  <div id="store-list"></div>
+
+  <h3>Total Valuation of Displayed Products: $<span id="total-price">0</span></h3>
+
+  <script src="store.js"></script>
+</body>
+</html>
