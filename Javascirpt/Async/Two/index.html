@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Jim's Epic Checkout System</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; padding: 2rem; background-color: #fafafa; }
+    .checkout-box { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto; }
+    .user-profile { background: #e8f4fd; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; }
+    .product-item { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #eee; }
+    .total-section { font-size: 1.25rem; font-weight: bold; text-align: right; color: #2c3e50; margin-top: 1rem; }
+    .loading-text { text-align: center; color: #7f8c8d; font-style: italic; }
+    button { width: 100%; padding: 0.75rem; background: #27ae60; color: white; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; font-weight: bold; }
+    button:hover { background: #219653; }
+  </style>
+</head>
+<body>
+
+  <div class="checkout-box">
+    <h2>💳 Invoice Checkout</h2>
+    <div id="loading" class="loading-text">Loading secure transaction data...</div>
+    
+    <div id="customer-info"></div>
+
+    <div id="items-list"></div>
+
+    <div id="checkout-total"></div>
+    
+    <br>
+    <button id="pay-btn" style="display: none;" onclick="processPayment()">Process Payment</button>
+  </div>
+
+  <script src="checkout.js"></script>
+</body>
+</html>
