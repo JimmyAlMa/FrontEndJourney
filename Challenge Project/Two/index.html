@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+        br {border: 2px solid gray;}
+        #movieContainer {display: flex; width: 100%; flex-wrap: wrap;}
+        #loadingText {color: gray;}
+    </style>
+    <title>Movie</title>
+</head>
+<body>
+    <h1>Search Movie</h1>
+    <input id="searchBar" type="search">
+    <button>Search</button>
+    <select name="category" id="category">
+        <option value="default" selected>Default</option>
+        <option value="horror">Horror</option>
+        <option value="comedy">Comedy</option>
+        <option value="romance">Romance</option>
+        <option value="action">Action</option>
+    </select>
+
+    <hr>
+    <div id="movieContainer">
+        <h1 id="loadingText">Loading...</h1>
+
+    </div>
+        <script src="script.js"></script>
+</body>
+</html>
