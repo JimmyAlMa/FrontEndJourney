@@ -3,7 +3,9 @@ const category = document.getElementById('category')
 const loadingText = document.getElementById('loadingText')
 const movieContainer = document.getElementById('movieContainer')
 
+
 const defaultSearch = 'star'
+
 
 let response
 
