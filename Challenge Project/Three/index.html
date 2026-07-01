@@ -12,10 +12,14 @@
     <button onclick="search()">Search</button>
     <button onclick="changeTemperature()">Change Temperature Unit</button>
     <hr>
-    <h2 id="country">Country:</h2>
-    <h2 id="city">City:</h2>
-    <h2 id="temperature">Temperature:</h2>
-    <h2 id="weather">Weather Status:</h2>
+    <div id="weatherContainer">
+        <h2 id="country" class="mainFeature">Country:</h2>
+        <h2 id="city" class="mainFeature">City:</h2>
+        <h2 id="temperature" class="mainFeature">Temperature:</h2>
+        <h2 id="weather" class="mainFeature">Weather Status:</h2>
+
+        <h1 id="errorMessage"></h1>
+    </div>
 
 
     <script src="config.js"></script>
