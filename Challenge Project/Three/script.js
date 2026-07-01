@@ -1,5 +1,5 @@
 const searchInput = document.getElementById('searchBar')
-const weatherContainer = document.getElementById('weatherContainer')
+const searchButton = document.getElementById('searchButton')
 const country = document.getElementById('country')
 const city = document.getElementById('city')
 const temperature = document.getElementById('temperature')
@@ -68,3 +68,14 @@ function changeTemperature() {
 function search() {
     loadWeather()
 }
+
+searchButton.disabled = true
+searchInput.addEventListener('change', function(event) {
+    if (searchInput.value === '') {
+        searchButton.disabled = true
+        searchButton.style.backgroundColor = 'red'
+    } else {
+        searchButton.disabled = false
+        searchButton.style.background = ''
+    }
+})
