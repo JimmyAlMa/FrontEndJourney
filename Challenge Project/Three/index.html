@@ -4,8 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather</title>
+    <style>body {font-family: Arial, Helvetica, sans-serif;}</style>
 </head>
 <body>
-    
+    <h1>Weather App</h1>
+    <input type="search" id="searchBar">
+    <button onclick="search()">Search</button>
+    <button onclick="changeTemperature()">Change Temperature Unit</button>
+    <hr>
+    <h2 id="country">Country:</h2>
+    <h2 id="city">City:</h2>
+    <h2 id="temperature">Temperature:</h2>
+    <h2 id="weather">Weather Status:</h2>
+
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

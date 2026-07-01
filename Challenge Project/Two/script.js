@@ -16,7 +16,7 @@ async function loadMovie() {
         const keyword = searchBar.value.trim().toLowerCase()
         const finalKeyword = keyword ? keyword : defaultSearch
 
-        let url = `https://www.omdbapi.com/?apikey=${CONFIG.API_KEY}&s=$${finalKeyword}`
+        let url = `https://www.omdbapi.com/?apikey=${CONFIG.MOVIE_API_KEY}&s=$${finalKeyword}`
 
         if (category.value !== 'default') {
             url += `&type=${category.value}`
