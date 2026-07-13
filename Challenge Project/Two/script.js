@@ -50,6 +50,16 @@ function renderMovie(movieData) {
     })
 }
 
+function changeTheme() {
+    document.body.classList.toggle('dark-mode')
+    const themeButton = document.getElementById('themeButton')
+    if (themeButton.textContent === 'Dark Mode') {
+        themeButton.textContent = 'White Mode'
+    } else {
+        themeButton.textContent = 'Dark Mode'
+    }
+}
+
 searchBar.addEventListener('input', loadMovie)
 category.addEventListener('change', loadMovie)
 
