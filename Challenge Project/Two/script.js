@@ -41,7 +41,7 @@ function renderMovie(movieData) {
     movieContainer.innerHTML = ''
     movieData.forEach(movie => {
         movieContainer.innerHTML += ` 
-            <div style="width: 300px; height: 400px; border: 2px solid black; display: flex; flex-direction: column; align-items: center;">
+            <div class="movieBox">
                 <h3>${movie.Title}</h3>
                 <h3>${movie.Year}</h3>
                 <img src="${movie.Poster}" style="width: 75%; height: 250px">
