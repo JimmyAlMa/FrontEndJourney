@@ -65,6 +65,17 @@ function changeTemperature() {
     loadWeather()
 }
 
+function changeTheme() {
+    const themeButton = document.getElementById('themeButton')
+    if (themeButton.textContent === 'Dark Mode') {
+        themeButton.textContent = 'White Mode'
+    } else {
+        themeButton.textContent = 'Dark Mode'
+    }
+    
+    document.body.classList.toggle('dark-mode')
+}
+
 function search() {
     loadWeather()
 }
