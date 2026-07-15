@@ -85,6 +85,7 @@ function renderMovieDetail(movie) {
             <h3>Actor: ${movie.Actors}</h3>
             <h3>Plot: ${movie.Plot}</h3>
             <h3>Rating: ${movie.imdbRating}</h3>
+            <button onclick="undoButton()">Back</button>
         </div>
     `
 }
@@ -99,7 +100,9 @@ function changeTheme() {
     }
 }
 
-
+function undoButton() {
+    loadMovie()
+}
 searchBar.addEventListener('input', loadMovie)
 category.addEventListener('change', loadMovie)
 
