@@ -146,8 +146,24 @@ function renderFavorites(movie) {
             <button class="addToFavButton" data-fav-id="${movie.imdbID}" data-fav-title="${movie.Title}">Remove from favorite</button>
         </div>
     `
+
+    const allFavButton = document.querySelectorAll('.addToFavButton')
+    allFavButton.forEach(button => {
+        button.addEventListener('click', function(event) {
+            const targetID = event.target.dataset.favId
+            const index = favoriteMovieId.findIndex(movie => movie.id === targetID)
+            if (index !== -1) {
+                favoriteMovieId.splice(index, 1)
+                console.log(targetID + ' has been delete from favorite')
+            }
+
+            const cardMovie = button.closest('.movieBox')
+            if (cardMovie) {
+                cardMovie.remove()
+            }
+        })
+    })
 }
-// Undo button and remove favorite from favorites tab coming tommorow
 
 function changeTheme() {
     document.body.classList.toggle('dark-mode')
