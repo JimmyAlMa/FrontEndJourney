@@ -9,9 +9,10 @@
         body.dark-mode .movieBox {border: 3px solid #ffffffec}
         br {border: 2px solid gray;}
         #movieContainer {display: flex; width: 100%; flex-wrap: wrap;}
-        .movieBox {width: 300px; height: 430px; border: 3px solid #000000cc; border-radius: 5px; display: flex; flex-direction: column; align-items: center; margin: 5px; text-align: center;}
-        .detailButton {margin-top: 10px; cursor: pointer;}
+        .movieBox {width: 300px; height: 450px; border: 3px solid #000000cc; border-radius: 5px; display: flex; flex-direction: column; align-items: center; margin: 5px; text-align: center;}
+        .detailButton {margin: 5px auto;}
         #loadingText {color: gray;}
+        button {cursor: pointer;}
     </style>
     <title>Movie</title>
 </head>
@@ -24,6 +25,7 @@
         <option value="series">Series</option>
     </select>
     <button onclick="changeTheme()" id="themeButton">Dark Mode</button>
+    <button id="favoriteButton" onclick="loadFavorite()">Favorites</button>
 
     <hr>
     <div id="movieContainer">

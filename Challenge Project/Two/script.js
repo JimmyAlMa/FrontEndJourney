@@ -37,6 +37,7 @@ async function loadMovie() {
     }
 }
 
+let favoriteMovieId = []
 function renderMovie(movieData) {
     movieContainer.innerHTML = ''
     movieData.forEach(movie => {
@@ -46,6 +47,7 @@ function renderMovie(movieData) {
                 <h3>${movie.Year}</h3>
                 <img src="${movie.Poster}" style="width: 75%; height: 250px">
                 <button class="detailButton" data-id="${movie.imdbID}">See detail</button>
+                <button class="addToFavButton" data-fav-id="${movie.imdbID}" data-fav-title="${movie.Title}">Add to favorites</button>
             </div>
         `
 
@@ -56,6 +58,33 @@ function renderMovie(movieData) {
                 console.log('Getting id:' + imdbID)
                 await showMovieDetail(imdbID)
             })
+        })
+
+        const allFavButton = document.querySelectorAll(".addToFavButton")
+        allFavButton.forEach(button => {
+            button.addEventListener('click', async function(event) {
+                if (button.textContent === 'Add to favorites') {
+                    button.textContent = 'Remove from favorite'
+
+                    const imdbID = {id: event.target.dataset.favId}
+                    console.log(`${imdbID.id} will be add to favorite`)
+                    favoriteMovieId.push(imdbID)
+                    console.log(favoriteMovieId)
+                } else {
+                    button.textContent = 'Add to favorites'
+
+                    const targetID = event.target.dataset.favId
+                    const resultID = favoriteMovieId.find(movie => movie.id.includes(`${event.target.dataset.favId}`))
+                    console.log(`${resultID.id} will be delete from favorite`)
+
+                    const index = favoriteMovieId.findIndex(movie => movie.id === targetID)
+                    if (index !== -1) {
+                        favoriteMovieId.splice(index, 1)
+                    }
+                    console.log(favoriteMovieId)
+                }
+            })
+
         })
     })
 }
@@ -89,6 +118,37 @@ function renderMovieDetail(movie) {
         </div>
     `
 }
+
+async function loadFavorite() {
+    movieContainer.innerHTML = ''
+    try {
+        for (const item of favoriteMovieId) {
+            const res = await fetch(`https://www.omdbapi.com/?apikey=${CONFIG.MOVIE_API_KEY}&i=${item.id}`)
+            const movie = await res.json()
+
+            if (movie.Response === 'True') {
+                renderFavorites(movie)
+            } else {
+                console.log('Something wrong with' + item.id)
+            }
+        }
+    } catch (err) {
+        console.log('error: ' + err)
+    }
+}
+
+function renderFavorites(movie) {
+    movieContainer.innerHTML += `
+        <div class="movieBox">
+             <h3>${movie.Title}</h3>
+            <h3>${movie.Year}</h3>
+            <img src="${movie.Poster}" style="width: 75%; height: 250px">
+            <button class="detailButton" data-id="${movie.imdbID}">See detail</button>
+            <button class="addToFavButton" data-fav-id="${movie.imdbID}" data-fav-title="${movie.Title}">Remove from favorite</button>
+        </div>
+    `
+}
+// Undo button and remove favorite from favorites tab coming tommorow
 
 function changeTheme() {
     document.body.classList.toggle('dark-mode')
