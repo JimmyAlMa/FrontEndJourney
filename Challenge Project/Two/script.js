@@ -64,12 +64,20 @@ function renderMovie(movieData) {
         allFavButton.forEach(button => {
             button.addEventListener('click', async function(event) {
                 if (button.textContent === 'Add to favorites') {
-                    button.textContent = 'Remove from favorite'
-
                     const imdbID = {id: event.target.dataset.favId}
-                    console.log(`${imdbID.id} will be add to favorite`)
-                    favoriteMovieId.push(imdbID)
-                    console.log(favoriteMovieId)
+
+                    const isExist = favoriteMovieId.find(movie => movie.id === imdbID)
+
+                    if (!isExist) {
+                        console.log(`${imdbID.id} will be add to favorite`)
+                        favoriteMovieId.push(imdbID)
+                        console.log(favoriteMovieId)
+
+                        button.textContent = 'Remove from favorite'
+                    } else {
+                        console.log('ID is already in the favorites')
+                    }
+
                 } else {
                     button.textContent = 'Add to favorites'
 
@@ -87,6 +95,7 @@ function renderMovie(movieData) {
 
         })
     })
+    updateFavButtonStatus()
 }
 
 
@@ -147,6 +156,15 @@ function renderFavorites(movie) {
         </div>
     `
 
+    const allDetailButton = document.querySelectorAll('.detailButton')
+        allDetailButton.forEach(button => {
+            button.addEventListener('click', async function(event) {
+                const imdbID = event.target.dataset.id
+                console.log('Getting id:' + imdbID)
+                await showMovieDetail(imdbID)
+            })
+        })
+
     const allFavButton = document.querySelectorAll('.addToFavButton')
     allFavButton.forEach(button => {
         button.addEventListener('click', function(event) {
@@ -162,6 +180,22 @@ function renderFavorites(movie) {
                 cardMovie.remove()
             }
         })
+    })
+}
+
+function updateFavButtonStatus() {
+    const allButton = document.querySelectorAll('.addToFavButton')
+
+    allButton.forEach(button => {
+        const targetID = button.dataset.favId
+
+        const isFavorited = favoriteMovieId.some(movie => movie.id === targetID)
+
+        if (isFavorited) {
+            button.textContent = 'Remove from favorite'
+        } else {
+            button.textContent = 'Add to favorites'
+        }
     })
 }
 
