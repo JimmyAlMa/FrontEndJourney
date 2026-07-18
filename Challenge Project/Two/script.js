@@ -2,14 +2,50 @@ const searchBar = document.getElementById('searchBar')
 const category = document.getElementById('category')
 const loadingText = document.getElementById('loadingText')
 const movieContainer = document.getElementById('movieContainer')
+const homeButton = document.getElementById('homeButton')
+const favoriteButton = document.getElementById('favoriteButton')
 
+let favoriteMovieId = []
 
-const defaultSearch = 'star'
+movieContainer.addEventListener('click', async function(event) {
+    const target = event.target
 
+    // Detail button
+    if (target.classList.contains('detailButton')) {
+        const imdbID = target.dataset.id
+        console.log('Get detail from the ID: ' + imdbID)
+        await loadMovieDetail(imdbID)
+    }
 
-let response
+    // Favorite button
+    if (target.classList.contains('addToFavButton')) {
+        const imdbID = target.dataset.favId
+        
+        if (target.textContent === 'Add to favorites') {
+            const isExist = favoriteMovieId.some(movie => movie.id === imdbID)
+
+            if (!isExist) {
+                console.log(`Add the ID: ${imdbID} to favorites`)
+                favoriteMovieId.push({id: imdbID})
+                target.textContent = 'Remove from favorite'
+            } else {
+                console.log('The ID is already exist(favorited)')
+            }
+        } else {
+            console.log(`The ID: ${imdbID} is deleted from favorite`)
+            const index = favoriteMovieId.findIndex(movie => movie.id === imdbID)
+            if (index !== -1) {
+                favoriteMovieId.splice(index, 1)
+                target.textContent = 'Add to favorites'
+            }
+        }
+    }
+})
 
 async function loadMovie() {
+    const defaultSearch = 'star'
+    let response
+
     try {
         loadingText.style.display = 'flex'
 
@@ -30,18 +66,18 @@ async function loadMovie() {
         if (data.Response === 'True') {
             renderMovie(data.Search)
         } else {
-            loadingText.innerText = `Movie not found: ${data.Error}`
+            loadingText.innerText = `Loading...`
         }
     } catch (error) {
-        console.log("Something wrong: " + error)
+        console.log("Loading...")
     }
 }
 
-let favoriteMovieId = []
 function renderMovie(movieData) {
     movieContainer.innerHTML = ''
+    let movieContent = ''
     movieData.forEach(movie => {
-        movieContainer.innerHTML += ` 
+        movieContent += `
             <div class="movieBox">
                 <h3>${movie.Title}</h3>
                 <h3>${movie.Year}</h3>
@@ -50,56 +86,12 @@ function renderMovie(movieData) {
                 <button class="addToFavButton" data-fav-id="${movie.imdbID}" data-fav-title="${movie.Title}">Add to favorites</button>
             </div>
         `
-
-        const allDetailButton = document.querySelectorAll('.detailButton')
-        allDetailButton.forEach(button => {
-            button.addEventListener('click', async function(event) {
-                const imdbID = event.target.dataset.id
-                console.log('Getting id:' + imdbID)
-                await showMovieDetail(imdbID)
-            })
-        })
-
-        const allFavButton = document.querySelectorAll(".addToFavButton")
-        allFavButton.forEach(button => {
-            button.addEventListener('click', async function(event) {
-                if (button.textContent === 'Add to favorites') {
-                    const imdbID = {id: event.target.dataset.favId}
-
-                    const isExist = favoriteMovieId.find(movie => movie.id === imdbID)
-
-                    if (!isExist) {
-                        console.log(`${imdbID.id} will be add to favorite`)
-                        favoriteMovieId.push(imdbID)
-                        console.log(favoriteMovieId)
-
-                        button.textContent = 'Remove from favorite'
-                    } else {
-                        console.log('ID is already in the favorites')
-                    }
-
-                } else {
-                    button.textContent = 'Add to favorites'
-
-                    const targetID = event.target.dataset.favId
-                    const resultID = favoriteMovieId.find(movie => movie.id.includes(`${event.target.dataset.favId}`))
-                    console.log(`${resultID.id} will be delete from favorite`)
-
-                    const index = favoriteMovieId.findIndex(movie => movie.id === targetID)
-                    if (index !== -1) {
-                        favoriteMovieId.splice(index, 1)
-                    }
-                    console.log(favoriteMovieId)
-                }
-            })
-
-        })
     })
+    movieContainer.innerHTML = movieContent
     updateFavButtonStatus()
 }
 
-
-async function showMovieDetail(id) {
+async function loadMovieDetail(id) {
     try {
         const res = await fetch(`https://www.omdbapi.com/?apikey=${CONFIG.MOVIE_API_KEY}&i=${id}`)
         const movie = await res.json()
@@ -132,10 +124,10 @@ async function loadFavorite() {
     try {
         for (const item of favoriteMovieId) {
             const res = await fetch(`https://www.omdbapi.com/?apikey=${CONFIG.MOVIE_API_KEY}&i=${item.id}`)
-            const movie = await res.json()
+            const movieData = await res.json()
 
-            if (movie.Response === 'True') {
-                renderFavorites(movie)
+            if (movieData.Response === 'True') {
+                renderFavorites(movieData)
             } else {
                 console.log('Something wrong with' + item.id)
             }
@@ -148,33 +140,17 @@ async function loadFavorite() {
 function renderFavorites(movie) {
     movieContainer.innerHTML += `
         <div class="movieBox">
-             <h3>${movie.Title}</h3>
+            <h3>${movie.Title}</h3>
             <h3>${movie.Year}</h3>
             <img src="${movie.Poster}" style="width: 75%; height: 250px">
             <button class="detailButton" data-id="${movie.imdbID}">See detail</button>
             <button class="addToFavButton" data-fav-id="${movie.imdbID}" data-fav-title="${movie.Title}">Remove from favorite</button>
         </div>
-    `
-
-    const allDetailButton = document.querySelectorAll('.detailButton')
-        allDetailButton.forEach(button => {
-            button.addEventListener('click', async function(event) {
-                const imdbID = event.target.dataset.id
-                console.log('Getting id:' + imdbID)
-                await showMovieDetail(imdbID)
-            })
-        })
+    `;
 
     const allFavButton = document.querySelectorAll('.addToFavButton')
     allFavButton.forEach(button => {
         button.addEventListener('click', function(event) {
-            const targetID = event.target.dataset.favId
-            const index = favoriteMovieId.findIndex(movie => movie.id === targetID)
-            if (index !== -1) {
-                favoriteMovieId.splice(index, 1)
-                console.log(targetID + ' has been delete from favorite')
-            }
-
             const cardMovie = button.closest('.movieBox')
             if (cardMovie) {
                 cardMovie.remove()
@@ -209,10 +185,12 @@ function changeTheme() {
     }
 }
 
-function homeButton() {
+homeButton.addEventListener('click', function() {
+    searchBar.value = ''
     loadMovie()
-}
+})
 searchBar.addEventListener('input', loadMovie)
 category.addEventListener('change', loadMovie)
+favoriteButton.addEventListener('click', loadFavorite)
 
 loadMovie()
