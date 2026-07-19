@@ -5,7 +5,8 @@ const movieContainer = document.getElementById('movieContainer')
 const homeButton = document.getElementById('homeButton')
 const favoriteButton = document.getElementById('favoriteButton')
 
-let favoriteMovieId = []
+const savedFavorites = localStorage.getItem('favoriteListLocal')
+let favoriteMovieId = savedFavorites ? JSON.parse(savedFavorites) : []
 
 movieContainer.addEventListener('click', async function(event) {
     const target = event.target
@@ -28,6 +29,9 @@ movieContainer.addEventListener('click', async function(event) {
                 console.log(`Add the ID: ${imdbID} to favorites`)
                 favoriteMovieId.push({id: imdbID})
                 target.textContent = 'Remove from favorite'
+
+                const stringData = JSON.stringify(favoriteMovieId)
+                localStorage.setItem('favoriteListLocal', stringData)
             } else {
                 console.log('The ID is already exist(favorited)')
             }
@@ -36,8 +40,11 @@ movieContainer.addEventListener('click', async function(event) {
             const index = favoriteMovieId.findIndex(movie => movie.id === imdbID)
             if (index !== -1) {
                 favoriteMovieId.splice(index, 1)
-                target.textContent = 'Add to favorites'
+                
+                const stringData = JSON.stringify(favoriteMovieId)
+                localStorage.setItem('favoriteListLocal', stringData)
             }
+            target.textContent = 'Add to favorites'
         }
     }
 })
@@ -121,6 +128,11 @@ function renderMovieDetail(movie) {
 
 async function loadFavorite() {
     movieContainer.innerHTML = ''
+
+    if (favoriteMovieId.length === 0) {
+        movieContainer.innerHTML = 'Your favorite is empty'
+        return
+    }
     try {
         for (const item of favoriteMovieId) {
             const res = await fetch(`https://www.omdbapi.com/?apikey=${CONFIG.MOVIE_API_KEY}&i=${item.id}`)
@@ -133,7 +145,7 @@ async function loadFavorite() {
             }
         }
     } catch (err) {
-        console.log('error: ' + err)
+        console.log('error: ' + err)    
     }
 }
 
