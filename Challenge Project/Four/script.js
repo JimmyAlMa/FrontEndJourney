@@ -42,6 +42,25 @@ navBar.addEventListener('click', function(event) {
     }
 })
 
+let userCart = []
+
+itemContainer.addEventListener('click', function(event) {
+    const target = event.target
+
+    if (target.classList.contains('addToCartButton')) {
+        const itemID = target.dataset.itemId
+        const itemName = target.dataset.itemName
+
+        const itemExist = userCart.find(item => item.id === itemID)
+        if (itemExist) {
+            itemExist.total += 1
+        } else {
+            userCart.push({id: itemID, name: itemName, total: 1})
+        }
+        console.log(userCart)
+    }
+})
+
 function renderItem(data, category) {
     itemContainer.innerHTML = ''
     let containerContent = ''
@@ -62,7 +81,7 @@ function renderItem(data, category) {
                 <h2>${item.name}</h2>
                 <h2>Price: ${item.price}$</h2>
                 <h2>Stock: ${item.stock}</h2>
-                <button data-item-name="${item.name}">Add to cart</button>
+                <button class="addToCartButton" data-item-name="${item.name}" data-item-id="${item.id}">Add to cart</button>
             </div>
         `
     });
