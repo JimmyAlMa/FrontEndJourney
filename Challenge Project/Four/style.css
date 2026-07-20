@@ -19,4 +19,19 @@ nav {
     display: flex;
     font-size: 1.3rem;
     gap: 10px;
+    cursor: pointer;
+}
+
+#itemContainer {
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+}
+.itemBox {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border: 2px solid black;
+    height: 200px;
+    width: 150px;
 }
