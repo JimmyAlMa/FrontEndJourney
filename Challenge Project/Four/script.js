@@ -1,4 +1,5 @@
 const itemContainer = document.querySelector('#itemContainer')
+const navBar = document.querySelector('#navBar')
 
 let itemStorage = {
     vegetables: [
@@ -20,3 +21,49 @@ let itemStorage = {
         { id: 't3', name: 'Card', price: 10, stock: 18 }
     ]
 };
+function loadDefault() {
+    renderItem(itemStorage.vegetables)
+}
+
+navBar.addEventListener('click', function(event) {
+    const target = event.target
+
+    if (target.classList.contains('vegetable')) {
+        renderItem(itemStorage.vegetables)
+    }
+
+    if (target.classList.contains('snack')) {
+        renderItem(itemStorage.snack)
+    }
+
+    if (target.classList.contains('toy')) {
+        renderItem(itemStorage.toy)
+    }
+})
+
+function renderItem(data) {
+    itemContainer.innerHTML = ''
+    let containerContent = ''
+
+    if (data.length > 0) {
+        if (data[0].id.startsWith('v')) {
+            console.log('Get vegetable stock')
+        } else if (data[0].id.startsWith('s')) {
+            console.log('Get snack stock')
+        } else if (data[0].id.startsWith('t')) {
+            console.log('Get toy stock')
+        }
+    }
+
+    data.forEach(item => {
+        containerContent += `
+            <div class="itemBox">
+                <h2>${item.name}</h2>
+                <h3>Price: ${item.price}$</h3>
+                <h3>Stock: ${item.stock}</h3>
+            </div>
+        `
+    });
+    itemContainer.innerHTML = containerContent
+}
+loadDefault()
