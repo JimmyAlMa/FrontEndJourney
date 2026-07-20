@@ -21,27 +21,28 @@ let itemStorage = {
         { id: 't3', name: 'Card', price: 10, stock: 18 }
     ]
 };
+
 function loadDefault() {
-    renderItem(itemStorage.vegetables)
+    renderItem(itemStorage.vegetables, 'vegetable')
 }
 
 navBar.addEventListener('click', function(event) {
     const target = event.target
 
     if (target.classList.contains('vegetable')) {
-        renderItem(itemStorage.vegetables)
+        renderItem(itemStorage.vegetables, 'vegetable')
     }
 
     if (target.classList.contains('snack')) {
-        renderItem(itemStorage.snack)
+        renderItem(itemStorage.snack, 'snack')
     }
 
     if (target.classList.contains('toy')) {
-        renderItem(itemStorage.toy)
+        renderItem(itemStorage.toy, 'toy')
     }
 })
 
-function renderItem(data) {
+function renderItem(data, category) {
     itemContainer.innerHTML = ''
     let containerContent = ''
 
@@ -57,10 +58,11 @@ function renderItem(data) {
 
     data.forEach(item => {
         containerContent += `
-            <div class="itemBox">
+            <div class="itemBox ${category}">
                 <h2>${item.name}</h2>
-                <h3>Price: ${item.price}$</h3>
-                <h3>Stock: ${item.stock}</h3>
+                <h2>Price: ${item.price}$</h2>
+                <h2>Stock: ${item.stock}</h2>
+                <button data-item-name="${item.name}">Add to cart</button>
             </div>
         `
     });
