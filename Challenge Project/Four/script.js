@@ -63,7 +63,6 @@ itemContainer.addEventListener('click', function(event) {
 
 function renderItem(data, category) {
     itemContainer.innerHTML = ''
-    let containerContent = ''
 
     if (data.length > 0) {
         if (data[0].id.startsWith('v')) {
@@ -76,7 +75,7 @@ function renderItem(data, category) {
     }
 
     data.forEach(item => {
-        containerContent += `
+        const containerContent = `
             <div class="itemBox ${category}">
                 <h2>${item.name}</h2>
                 <h2>Price: ${item.price}$</h2>
@@ -84,7 +83,7 @@ function renderItem(data, category) {
                 <button class="addToCartButton" data-item-name="${item.name}" data-item-id="${item.id}">Add to cart</button>
             </div>
         `
+        itemContainer.insertAdjacentHTML('beforeend', containerContent)
     });
-    itemContainer.innerHTML = containerContent
 }
 loadDefault()
