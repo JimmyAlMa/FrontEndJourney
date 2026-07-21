@@ -23,14 +23,16 @@ let itemStorage = {
 };
 
 function loadDefault() {
-    renderItem(itemStorage.vegetables, 'vegetable')
+    itemContainer.innerHTML = ''
+
+    renderItem(itemStorage.vegetables, 'vegetables')
 }
 
 navBar.addEventListener('click', function(event) {
     const target = event.target
 
-    if (target.classList.contains('vegetable')) {
-        renderItem(itemStorage.vegetables, 'vegetable')
+    if (target.classList.contains('vegetables')) {
+        renderItem(itemStorage.vegetables, 'vegetables')
     }
 
     if (target.classList.contains('snack')) {
@@ -50,14 +52,32 @@ itemContainer.addEventListener('click', function(event) {
     if (target.classList.contains('addToCartButton')) {
         const itemID = target.dataset.itemId
         const itemName = target.dataset.itemName
+        const itemCategory = target.dataset.itemCategory
+
+        const allItem = Object.values(itemStorage).flat()
+        const targetItem = allItem.find(item => item.id === itemID)
 
         const itemExist = userCart.find(item => item.id === itemID)
+
+        if (targetItem.stock <= 0) {
+            console.log('Item out of stock')
+            alert('Item is out of stock')
+            return
+        }
+
+        targetItem.stock -= 1
+
         if (itemExist) {
             itemExist.total += 1
         } else {
             userCart.push({id: itemID, name: itemName, total: 1})
         }
-        console.log(userCart)
+
+        if (itemCategory) {
+            renderItem(itemStorage[itemCategory], itemCategory)
+        }
+        console.log('User cart: ', userCart)
+        console.log('Update item storage: ', itemStorage)
     }
 })
 
@@ -66,7 +86,7 @@ function renderItem(data, category) {
 
     if (data.length > 0) {
         if (data[0].id.startsWith('v')) {
-            console.log('Get vegetable stock')
+            console.log('Get vegetables stock')
         } else if (data[0].id.startsWith('s')) {
             console.log('Get snack stock')
         } else if (data[0].id.startsWith('t')) {
@@ -80,7 +100,7 @@ function renderItem(data, category) {
                 <h2>${item.name}</h2>
                 <h2>Price: ${item.price}$</h2>
                 <h2>Stock: ${item.stock}</h2>
-                <button class="addToCartButton" data-item-name="${item.name}" data-item-id="${item.id}">Add to cart</button>
+                <button class="addToCartButton" data-item-name="${item.name}" data-item-id="${item.id}" data-item-category="${category}">Add to cart</button>
             </div>
         `
         itemContainer.insertAdjacentHTML('beforeend', containerContent)
