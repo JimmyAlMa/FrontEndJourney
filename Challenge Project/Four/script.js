@@ -1,5 +1,6 @@
 const itemContainer = document.querySelector('#itemContainer')
 const navBar = document.querySelector('#navBar')
+const cartContainer = document.querySelector('#cartContainer')
 
 let itemStorage = {
     vegetables: [
@@ -42,9 +43,13 @@ navBar.addEventListener('click', function(event) {
     if (target.classList.contains('toy')) {
         renderItem(itemStorage.toy, 'toy')
     }
+
+    if (target.classList.contains('userCart')) {
+        renderCart()
+    }
 })
 
-let userCart = []
+let userCart = [] // Object inside this array
 
 itemContainer.addEventListener('click', function(event) {
     const target = event.target
@@ -52,6 +57,7 @@ itemContainer.addEventListener('click', function(event) {
     if (target.classList.contains('addToCartButton')) {
         const itemID = target.dataset.itemId
         const itemName = target.dataset.itemName
+        const itemPrice = Number(target.dataset.itemPrice)
         const itemCategory = target.dataset.itemCategory
 
         const allItem = Object.values(itemStorage).flat()
@@ -69,8 +75,9 @@ itemContainer.addEventListener('click', function(event) {
 
         if (itemExist) {
             itemExist.total += 1
+            itemExist.price += itemPrice
         } else {
-            userCart.push({id: itemID, name: itemName, total: 1})
+            userCart.push({id: itemID, name: itemName, total: 1, price: itemPrice})
         }
 
         if (itemCategory) {
@@ -100,10 +107,16 @@ function renderItem(data, category) {
                 <h2>${item.name}</h2>
                 <h2>Price: ${item.price}$</h2>
                 <h2>Stock: ${item.stock}</h2>
-                <button class="addToCartButton" data-item-name="${item.name}" data-item-id="${item.id}" data-item-category="${category}">Add to cart</button>
+                <button class="addToCartButton" data-item-name="${item.name}" data-item-id="${item.id}" data-item-price="${item.price}" data-item-category="${category}">Add to cart</button>
             </div>
         `
         itemContainer.insertAdjacentHTML('beforeend', containerContent)
     });
+}
+
+function renderCart() {
+    itemContainer.innerHTML = ''
+
+    
 }
 loadDefault()
