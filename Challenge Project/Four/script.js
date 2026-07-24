@@ -1,6 +1,8 @@
 const itemContainer = document.querySelector('#itemContainer')
 const navBar = document.querySelector('#navBar')
+const cartText = document.querySelector('.userCartNav')
 const cartContainer = document.querySelector('#cartContainer')
+const mainContainer = document.querySelector('#main')
 
 let itemStorage = {
     vegetables: [
@@ -23,6 +25,8 @@ let itemStorage = {
     ]
 };
 
+let userCart = [] // Object inside this array
+
 function loadDefault() {
     itemContainer.innerHTML = ''
 
@@ -44,24 +48,27 @@ navBar.addEventListener('click', function(event) {
         renderItem(itemStorage.toy, 'toy')
     }
 
-    if (target.classList.contains('userCart')) {
-        renderCart()
+    if (target.classList.contains('userCartNav')) {
+        renderCart(userCart)
     }
 })
 
-let userCart = [] // Object inside this array
+function renderCartText() {
+    const grandTotalItem = userCart.reduce((sum, item) => sum + item.total, 0)
+    cartText.textContent = `Your cart +${grandTotalItem}`
+}
 
-itemContainer.addEventListener('click', function(event) {
+mainContainer.addEventListener('click', function(event) {
     const target = event.target
 
     if (target.classList.contains('addToCartButton')) {
         const itemID = target.dataset.itemId
         const itemName = target.dataset.itemName
-        const itemPrice = Number(target.dataset.itemPrice)
         const itemCategory = target.dataset.itemCategory
 
         const allItem = Object.values(itemStorage).flat()
         const targetItem = allItem.find(item => item.id === itemID)
+        const targetItemPrice = targetItem.price
 
         const itemExist = userCart.find(item => item.id === itemID)
 
@@ -75,21 +82,117 @@ itemContainer.addEventListener('click', function(event) {
 
         if (itemExist) {
             itemExist.total += 1
-            itemExist.price += itemPrice
+            itemExist.price += targetItemPrice
         } else {
-            userCart.push({id: itemID, name: itemName, total: 1, price: itemPrice})
+            userCart.push({id: itemID, name: itemName, total: 1, price: targetItemPrice})
         }
 
         if (itemCategory) {
             renderItem(itemStorage[itemCategory], itemCategory)
         }
+
+        renderCartText()
+
         console.log('User cart: ', userCart)
         console.log('Update item storage: ', itemStorage)
+    }
+
+    if (target.classList.contains('addButton')) {
+        const targetID = target.dataset.itemId
+        const targetTotal = Number(target.dataset.itemTotal)
+
+        const allItem = Object.values(itemStorage).flat()
+        const targetItem = allItem.find(item => item.id === targetID)
+        const targetItemPrice = targetItem.price
+
+        const totalElement = target.closest('.itemCart').querySelector('.cartItemTotal')
+        const priceElement = target.closest('.itemCart').querySelector('.cartItemPrice')
+
+        const itemExist = userCart.find(item => item.id === targetID)
+
+        if (targetItem.stock <= 0) {
+            console.log('Item out of stock')
+            alert('Item is out of stock')
+            return
+        }
+
+        targetItem.stock -= 1
+
+        if (itemExist) {
+            itemExist.total += 1
+            itemExist.price += targetItemPrice
+        }
+
+        if (totalElement && priceElement) {
+            totalElement.textContent = `(${itemExist.total})`
+            priceElement.textContent = `$${itemExist.price}`
+        }
+
+        console.log('User cart: ', userCart)
+        console.log('Update item storage: ', itemStorage)
+    }
+
+    if (target.classList.contains('lessButton')) {
+        const targetID = target.dataset.itemId
+        const targetTotal = Number(target.dataset.itemTotal)
+
+        const allItem = Object.values(itemStorage).flat()
+        const targetItem = allItem.find(item => item.id === targetID)
+        const targetItemPrice = targetItem.price
+
+        const itemExist = userCart.find(item => item.id === targetID)
+
+        targetItem.stock += 1
+    
+        if (itemExist) {
+            itemExist.total -= 1
+            itemExist.price -= targetItemPrice
+        }
+
+
+        const itemCartCard = target.closest('.itemCart')
+        if (itemExist.total <= 0) {
+            const index = userCart.findIndex(item => item.id === targetID)
+            if (index !== -1) {userCart.splice(index, 1)}
+
+            if (itemCartCard) {itemCartCard.remove()}
+        } else {
+            const totalElement = target.closest('.itemCart').querySelector('.cartItemTotal')
+            const priceElement = target.closest('.itemCart').querySelector('.cartItemPrice')
+
+            if (totalElement && priceElement) {
+                totalElement.textContent = `(${itemExist.total})`
+                priceElement.textContent = `$${itemExist.price}`
+            }
+        }
+
+        renderCartText()
+
+        console.log('User cart: ', userCart)
+        console.log('Update item storage: ', itemStorage)
+    }
+
+    if (target.classList.contains('deleteButton')) {
+        const targetID = target.dataset.itemId
+        const targetTotal = Number(target.dataset.itemTotal)
+
+        const allItem = Object.values(itemStorage).flat()
+        const targetItem = allItem.find(item => item.id === targetID)
+
+        targetItem.stock += targetTotal
+
+        const itemCartCard = target.closest('.itemCart')
+        const index = userCart.findIndex(item => item.id === targetID)
+        if (index !== -1) {userCart.splice(index, 1)}
+        if (itemCartCard) {itemCartCard.remove()}
+
+        renderCartText()
     }
 })
 
 function renderItem(data, category) {
     itemContainer.innerHTML = ''
+    cartContainer.innerHTML = ''
 
     if (data.length > 0) {
         if (data[0].id.startsWith('v')) {
@@ -114,9 +217,34 @@ function renderItem(data, category) {
     });
 }
 
-function renderCart() {
+function renderCart(data) {
     itemContainer.innerHTML = ''
+    cartContainer.innerHTML = ''
+    let cartContent = ''
 
-    
+    if (data.length <= 0) {
+        cartContainer.innerHTML = '<h1>Cart Empty...</h1>'
+        return
+    }
+
+    data.forEach(item => {
+        cartContent = `
+            <div class="itemCart">
+                <div class="cartBox-1">
+                    <h2>${item.name}</h2>
+                    <h2 class="cartItemTotal">(${item.total})</h2>
+                    <h2 class="cartItemPrice">$${item.price}</h2>
+                    <button class="deleteButton" data-item-total="${item.total}" data-item-id="${item.id}">Delete</button>
+                </div>
+                <div class="cartBox-2">
+                    <button class="addOrLessButton addButton" data-item-total="${item.total}" data-item-id="${item.id}">+</button>
+                    <button class="addOrLessButton lessButton" data-item-total="${item.total}" data-item-id="${item.id}">-</button>
+                </div>
+                <hr>
+            </div>
+        `
+
+        cartContainer.insertAdjacentHTML('beforeend', cartContent)
+    })
 }
 loadDefault()
