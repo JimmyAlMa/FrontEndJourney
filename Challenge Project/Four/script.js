@@ -2,6 +2,8 @@ const itemContainer = document.querySelector('#itemContainer')
 const navBar = document.querySelector('#navBar')
 const cartText = document.querySelector('.userCartNav')
 const cartContainer = document.querySelector('#cartContainer')
+const itemCartContainer = document.querySelector('#itemCartContainer')
+const itemDescContainer = document.querySelector('#itemDescContainer')
 const mainContainer = document.querySelector('#main')
 
 let itemStorage = {
@@ -192,7 +194,8 @@ mainContainer.addEventListener('click', function(event) {
 
 function renderItem(data, category) {
     itemContainer.innerHTML = ''
-    cartContainer.innerHTML = ''
+    itemCartContainer.innerHTML = ''
+    itemDescContainer.innerHTML = ''
 
     if (data.length > 0) {
         if (data[0].id.startsWith('v')) {
@@ -219,8 +222,8 @@ function renderItem(data, category) {
 
 function renderCart(data) {
     itemContainer.innerHTML = ''
-    cartContainer.innerHTML = ''
-    let cartContent = ''
+    itemCartContainer.innerHTML = ''
+    itemDescContainer.innerHTML = ''
 
     if (data.length <= 0) {
         cartContainer.innerHTML = '<h1>Cart Empty...</h1>'
@@ -228,8 +231,8 @@ function renderCart(data) {
     }
 
     data.forEach(item => {
-        cartContent = `
-            <div class="itemCart">
+        const cartContent = `
+            <div style="padding: 10px;">
                 <div class="cartBox-1">
                     <h2>${item.name}</h2>
                     <h2 class="cartItemTotal">(${item.total})</h2>
@@ -244,7 +247,20 @@ function renderCart(data) {
             </div>
         `
 
-        cartContainer.insertAdjacentHTML('beforeend', cartContent)
+        itemCartContainer.insertAdjacentHTML('beforeend', cartContent)
     })
+
+    const grandTotalPrice = data.reduce((acc, item) => {
+        return acc + item.price
+    }, 0)
+    const grandTotalItem = data.reduce((acc, item) => {
+        return acc + item.total
+    }, 0)
+    itemDescContainer.innerHTML = `
+        <div style="padding: 10px;">
+            <h2>Total Item: ${grandTotalItem}</h2>
+            <h2>Total Price: ${grandTotalPrice}$</h2>
+        </div>
+    `
 }
 loadDefault()
