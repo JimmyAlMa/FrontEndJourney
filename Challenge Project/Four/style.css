@@ -1,4 +1,12 @@
-body {font-family: Arial, Helvetica, sans-serif;}
+html, body {
+    height: 100vh;
+    overflow: hidden;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
 * {
     box-sizing: border-box; 
@@ -13,6 +21,7 @@ nav {
     height: 75px; 
     padding: 5px 20px;
     border: 2px solid black;
+    flex-shrink: 0;
 }
 
 #navItem {
@@ -23,6 +32,12 @@ nav {
 }
 h1 {
     cursor: pointer;
+}
+
+#main {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
 }
 
 #itemContainer {
@@ -53,8 +68,20 @@ h1 {
 }
 
 #cartContainer {
+    width: 100%;
+    height: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+}
+#itemCartContainer {
+    grid-column: 1;
+    border-right: 2px solid black;
+    overflow-y: auto;
+}
+#itemDescContainer {
+    grid-column: 2;
+    overflow: hidden;
 }
 .cartBox-1 {
     display: flex;
@@ -79,13 +106,6 @@ button {
 }
 hr {
     margin: 10px auto;
-}
-#itemCartContainer {
-    grid-column: 1;
-    border-right: 2px solid black;
-}
-#itemDescContainer {
-    grid-column: 2;
 }
 
 
