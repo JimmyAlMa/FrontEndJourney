@@ -205,8 +205,8 @@ itemCartContainer.addEventListener('click', function(event) {
 
 function renderItem(data, category) {
     itemContainer.innerHTML = ''
+    cartContainer.style.display = 'none'
     itemCartContainer.innerHTML = ''
-    itemDescContainer.innerHTML = ''
 
     if (data.length > 0) {
         if (data[0].id.startsWith('v')) {
@@ -233,8 +233,8 @@ function renderItem(data, category) {
 
 function renderCart(data) {
     itemContainer.innerHTML = ''
+    cartContainer.style.display = 'grid'
     itemCartContainer.innerHTML = ''
-    itemDescContainer.innerHTML = ''
 
     if (data.length <= 0) {
         itemCartContainer.innerHTML = '<h1>Cart Empty...</h1>'
