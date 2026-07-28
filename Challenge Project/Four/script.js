@@ -52,6 +52,7 @@ navBar.addEventListener('click', function(event) {
 
     if (target.classList.contains('userCartNav')) {
         renderCart(userCart)
+        renderCartTotal(userCart)
     }
 })
 
@@ -99,96 +100,106 @@ mainContainer.addEventListener('click', function(event) {
         console.log('Update item storage: ', itemStorage)
     }
 
+})
+
+itemCartContainer.addEventListener('click', function(event) {
+    const target = event.target
+
     if (target.classList.contains('addButton')) {
         const targetID = target.dataset.itemId
         const targetTotal = Number(target.dataset.itemTotal)
-
+    
         const allItem = Object.values(itemStorage).flat()
         const targetItem = allItem.find(item => item.id === targetID)
         const targetItemPrice = targetItem.price
-
+    
         const totalElement = target.closest('.itemCart').querySelector('.cartItemTotal')
         const priceElement = target.closest('.itemCart').querySelector('.cartItemPrice')
-
+    
         const itemExist = userCart.find(item => item.id === targetID)
-
+    
         if (targetItem.stock <= 0) {
             console.log('Item out of stock')
             alert('Item is out of stock')
             return
         }
-
+    
         targetItem.stock -= 1
-
+    
         if (itemExist) {
             itemExist.total += 1
             itemExist.price += targetItemPrice
         }
-
+    
         if (totalElement && priceElement) {
             totalElement.textContent = `(${itemExist.total})`
             priceElement.textContent = `$${itemExist.price}`
         }
 
+        renderCartText()
+        renderCartTotal(userCart)
+    
         console.log('User cart: ', userCart)
         console.log('Update item storage: ', itemStorage)
     }
-
+    
     if (target.classList.contains('lessButton')) {
         const targetID = target.dataset.itemId
         const targetTotal = Number(target.dataset.itemTotal)
-
+    
         const allItem = Object.values(itemStorage).flat()
         const targetItem = allItem.find(item => item.id === targetID)
         const targetItemPrice = targetItem.price
-
+    
         const itemExist = userCart.find(item => item.id === targetID)
-
+    
         targetItem.stock += 1
     
         if (itemExist) {
             itemExist.total -= 1
             itemExist.price -= targetItemPrice
         }
-
-
+    
+    
         const itemCartCard = target.closest('.itemCart')
         if (itemExist.total <= 0) {
             const index = userCart.findIndex(item => item.id === targetID)
             if (index !== -1) {userCart.splice(index, 1)}
-
+    
             if (itemCartCard) {itemCartCard.remove()}
         } else {
             const totalElement = target.closest('.itemCart').querySelector('.cartItemTotal')
             const priceElement = target.closest('.itemCart').querySelector('.cartItemPrice')
-
+    
             if (totalElement && priceElement) {
                 totalElement.textContent = `(${itemExist.total})`
                 priceElement.textContent = `$${itemExist.price}`
             }
         }
-
+    
         renderCartText()
-
+        renderCartTotal(userCart)
+    
         console.log('User cart: ', userCart)
         console.log('Update item storage: ', itemStorage)
     }
-
+    
     if (target.classList.contains('deleteButton')) {
         const targetID = target.dataset.itemId
         const targetTotal = Number(target.dataset.itemTotal)
-
+    
         const allItem = Object.values(itemStorage).flat()
         const targetItem = allItem.find(item => item.id === targetID)
-
+    
         targetItem.stock += targetTotal
-
+    
         const itemCartCard = target.closest('.itemCart')
         const index = userCart.findIndex(item => item.id === targetID)
         if (index !== -1) {userCart.splice(index, 1)}
         if (itemCartCard) {itemCartCard.remove()}
-
+    
         renderCartText()
+        renderCartTotal(userCart)
     }
 })
 
@@ -226,13 +237,13 @@ function renderCart(data) {
     itemDescContainer.innerHTML = ''
 
     if (data.length <= 0) {
-        cartContainer.innerHTML = '<h1>Cart Empty...</h1>'
+        itemCartContainer.innerHTML = '<h1>Cart Empty...</h1>'
         return
     }
 
     data.forEach(item => {
         const cartContent = `
-            <div style="padding: 10px;">
+            <div class="itemCart" style="padding: 10px;">
                 <div class="cartBox-1">
                     <h2>${item.name}</h2>
                     <h2 class="cartItemTotal">(${item.total})</h2>
@@ -249,7 +260,9 @@ function renderCart(data) {
 
         itemCartContainer.insertAdjacentHTML('beforeend', cartContent)
     })
+}
 
+function renderCartTotal(data) {
     const grandTotalPrice = data.reduce((acc, item) => {
         return acc + item.price
     }, 0)
