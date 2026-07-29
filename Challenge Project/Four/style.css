@@ -90,6 +90,12 @@ h1 {
 button {
     font-size: inherit;
     cursor: pointer;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+button:hover {
+    background-color: #b6b6b6;
 }
 .addOrLessButton {
     width: 30px;
@@ -106,6 +112,23 @@ button {
 }
 hr {
     margin: 10px auto;
+    border: none;
+    border-top: 2px solid black;
+}
+
+/* Style */
+nav {
+    background: linear-gradient(to bottom, 
+    #2196F3 0%,
+    #0D47A1 100%
+    );
+    color: #E3F2FD;
+}
+#main {
+    background: linear-gradient(to bottom, 
+    #2196F3 0%,
+    #90CAF9 50%,
+    #E3F2FD 100%);
 }
 
 
