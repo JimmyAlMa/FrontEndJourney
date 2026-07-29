@@ -44,6 +44,10 @@ h1 {
     padding: 10px;
     flex-wrap: wrap;
     gap: 10px;
+
+    align-content: flex-start;
+    overflow-y: auto;
+    height: 100%;
 }
 .itemBox {
     display: flex;
