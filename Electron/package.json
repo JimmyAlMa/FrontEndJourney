@@ -1,0 +1,16 @@
+{
+  "name": "My first app",
+  "version": "1.0.0",
+  "description": "My first app using electron",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "electron": "^43.2.0"
+  }
+}
