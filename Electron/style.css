@@ -25,3 +25,6 @@ button {
     height: 200px;
     border: 2px dashed black;
 }
+#outputText {
+    font-size: 2.6rem;
+}
