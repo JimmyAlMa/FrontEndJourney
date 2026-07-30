@@ -17,3 +17,11 @@ button {
     height: 50px;
     font-size: 1.3rem;
 }
+#outputContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    height: 200px;
+    border: 2px dashed black;
+}
